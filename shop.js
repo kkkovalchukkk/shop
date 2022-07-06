@@ -37,12 +37,18 @@ const data = [
     },
 ];
 
-const added = [];
-
 const list = document.querySelector(".shop-list");
 
 function render() {
     data.map((item) => {
+        let addedOrNo;
+        if (localStorage.favData) {
+            addedOrNo = JSON.parse(localStorage.favData).includes(item.id)
+                ? "Добавлено"
+                : "Купить";
+        } else {
+            addedOrNo = "Купить";
+        }
         list.insertAdjacentHTML(
             "afterbegin",
             `<li class="card" data-id="${item.id}">
@@ -55,19 +61,29 @@ function render() {
                         <span class="price"
                             >${item.price}<ion-icon name="cash-outline"></ion-icon
                         ></span>
-                        <button class="buy-btn">Купить</button>
+                        <button class="buy-btn">${addedOrNo}</button>
                     </li>`
         );
     });
 }
+
 render();
 
 const buyBtns = document.querySelectorAll(".buy-btn");
 
 buyBtns.forEach((b) => {
     b.addEventListener("click", (e) => {
-        let idx = e.target.parentNode.dataset.id;
-        added.push(idx);
-        localStorage.setItem("ids", added);
+        if (!localStorage.getItem("favData")) {
+            localStorage.setItem("favData", JSON.stringify([]));
+        }
+        let id = +e.target.parentNode.dataset.id;
+        if (JSON.parse(localStorage.favData).includes(id)) {
+            b.textContent = "Добавлено";
+        }
+        let newData = JSON.parse(localStorage.favData);
+        if (newData.includes(id)) return;
+        newData.push(id);
+        localStorage.setItem("favData", JSON.stringify(newData));
+        b.textContent = "Добавлено";
     });
 });
