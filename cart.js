@@ -36,3 +36,52 @@ const data = [
         url: "https://images.satom.ru/i3/firms/28/5647/5647192/pic_efb2bdc22ed529b_1024x3000.jpg",
     },
 ];
+
+const cartList = document.querySelector(".cart-list");
+
+function render(arr) {
+    let fullPrice = 0;
+    function renderFav(arr) {
+        clear();
+        arr.map((id) => {
+            fullPrice += data[id].price;
+            cartList.insertAdjacentHTML(
+                "afterbegin",
+                `<li class="card" data-id="${id}">
+                            <img
+                                src="${data[id].url}"
+                                alt=""
+                                class="card-photo"
+                                />
+                                <h3 class="card-title">${data[id].name}</h3>
+                                <span class="price"
+                                >${data[id].price}<ion-icon name="cash-outline"></ion-icon
+                                ></span>
+                                <button class="delete-btn"><ion-icon name="trash-outline"></ion-icon></button>
+                                </li>`
+            );
+        });
+        const delBtns = document.querySelectorAll(".delete-btn");
+
+        delBtns.forEach((b) => {
+            b.addEventListener("click", (e) => {
+                let idx = e.target.parentNode.parentNode.dataset.id;
+                newArr = newArr.filter((id) => id != +idx);
+                localStorage.setItem("favData", JSON.stringify(newArr));
+                renderFav(JSON.parse(localStorage.favData));
+                fullPrice -= data[idx].price;
+                total.textContent = `Total:${fullPrice} руб`;
+            });
+        });
+    }
+    function clear() {
+        cartList.textContent = "";
+    }
+    let newArr = JSON.parse(localStorage.favData);
+
+    renderFav(newArr);
+    const total = document.querySelector(".total");
+    total.textContent = `Total:${fullPrice} руб`;
+}
+
+render();
