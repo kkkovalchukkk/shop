@@ -1,0 +1,154 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./style.css" />
+        <title>Cart</title>
+        <style>
+            .cart-list {
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: space-between;
+            }
+            .card {
+                max-width: 350px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.137);
+                border-right: 1px solid rgba(0, 0, 0, 0.137);
+            }
+            .card-photo {
+                border-radius: 50px;
+                width: 350px;
+                height: 350px;
+            }
+            .buy-btn {
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+
+            .buy-btn:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="wrapper">
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="./index.html" class="nav-link">
+                                <ion-icon name="home-outline"></ion-icon>
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./shop.html" class="nav-link">
+                                <ion-icon name="card-outline"></ion-icon>
+                                Shop
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link is-selected">
+                                <ion-icon name="cart-outline"></ion-icon>
+                                Cart
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </body>
+    <main class="main">
+        <div class="wrapper">
+            <ul class="cart-list"></ul>
+        </div>
+    </main>
+    <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+        const data = [
+            {
+                name: "Iphone 6s",
+                price: 25000,
+                id: 0,
+                url: "https://100fon.ru/upload/iblock/6c4/6c46d77843cc7fcd7a455a24cde61fc6.jpg",
+            },
+            {
+                name: "Iphone 7",
+                price: 15000,
+                id: 1,
+                url: "https://novorossiysk.iprofishop.ru/upload/iblock/2f0/2f0c1208f3e90d2a07da58afffc1d875.png",
+            },
+            {
+                name: "Iphone XR",
+                price: 105000,
+                id: 2,
+                url: "https://cdn.svyaznoy.ru/upload/iblock/5b5/01%20e2z.jpg/resize/483x483/hq/",
+            },
+            {
+                name: "Iphone 13pro",
+                price: 200000,
+                id: 3,
+                url: "https://denika.ua/image/cache/product/305639/main-1-350x350.jpg",
+            },
+            {
+                name: "Iphone 5s",
+                price: 10000,
+                id: 4,
+                url: "https://cdn.shopify.com/s/files/1/0326/2971/9176/products/apple-iphone-5s-silver-fully-unlocked-cell-phones-16gb-gold-dailysale-131536_350x.jpg?v=1640828355",
+            },
+            {
+                name: "Iphone 4s",
+                price: 8000,
+                id: 5,
+                url: "https://images.satom.ru/i3/firms/28/5647/5647192/pic_efb2bdc22ed529b_1024x3000.jpg",
+            },
+        ];
+
+        const cartList = document.querySelector(".cart-list");
+
+        let newArr = [...localStorage.ids];
+
+        newArr = newArr.map((i) => {
+            return +i;
+        });
+
+        newArr = newArr.filter((i) => {
+            if (typeof i == "Number") return;
+        });
+
+        console.log(newArr);
+        // newArr.map((id) => {
+        //     if (typeof id != "number") return;
+        //     cartList.insertAdjacentHTML(
+        //         "afterbegin",
+        //         `<li class="card">
+        //                 <img
+        //                     src="${data[id].url}"
+        //                     alt=""
+        //                     class="card-photo"
+        //                 />
+        //                 <h3 class="card-title">${data[id].name}</h3>
+        //                 <span class="price"
+        //                     >${data[id].price}<ion-icon name="cash-outline"></ion-icon
+        //                 ></span>
+        //                 <button class="buy-btn">Удалить</button>
+        //             </li>`
+        //     );
+        // });
+    </script>
+</html>
